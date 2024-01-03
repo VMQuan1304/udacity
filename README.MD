@@ -41,7 +41,7 @@ Use what you've completed in etl.ipynb to complete etl.py, where you'll process 
 ### Run Sanity Tests
 When you are satisfied with your work, run the cell under the Sanity Tests section in the test.ipynb notebook. The cells contain some basic tests that will evaluate your work and catch any silly mistakes. We test column data types, primary key constraints and not-null constraints as well look for on-conflict clauses wherever required.
 
-## Project 2: Data Modeling with Cassandra
+# Project 2: Data Modeling with Cassandra
 ## Introduction
 A startup called Sparkify wants to analyze the data they've been collecting on songs and user activity on their new music streaming app. The analysis team is particularly interested in understanding what songs users are listening to. Currently, there is no easy way to query the data to generate the results, since the data reside in a directory of CSV files on user activity on the app.
 
@@ -79,19 +79,46 @@ artist_id, name, location, latitude, longitude
 **4.time** - timestamps of records in songplays broken down into specific units
 start_time, hour, day, week, month, year, weekday
 
-> Project Steps
+## Project Steps
 Below are steps you can follow to complete each component of this project.
 
-Create Table Schemas
-Design schemas for your fact and dimension tables
-Write a SQL CREATE statement for each of these tables in sql_queries.py
-Complete the logic in create_tables.py to connect to the database and create these tables
-Write SQL DROP statements to drop tables in the beginning of create_tables.py if the tables already exist. This way, you can run create_tables.py whenever you want to reset your database and test your ETL pipeline.
-Launch a redshift cluster and create an IAM role that has read access to S3.
-Add redshift database and IAM role info to dwh.cfg.
-Test by running create_tables.py and checking the table schemas in your redshift database. You can use Query Editor in the AWS Redshift console for this.
-Build ETL Pipeline
-Implement the logic in etl.py to load data from S3 to staging tables on Redshift.
-Implement the logic in etl.py to load data from staging tables to analytics tables on Redshift.
-Test by running etl.py after running create_tables.py and running the analytic queries on your Redshift database to compare your results with the expected results.
-Delete your redshift cluster when finished.
+### Create Table Schemas
+1. Design schemas for your fact and dimension tables
+2. Write a SQL CREATE statement for each of these tables in sql_queries.py
+3. Complete the logic in create_tables.py to connect to the database and create these tables
+4. Write SQL DROP statements to drop tables in the beginning of create_tables.py if the tables already exist. This way, you can run create_tables.py whenever you want to reset your database and test your ETL pipeline.
+5. Launch a redshift cluster and create an IAM role that has read access to S3.
+6. Add redshift database and IAM role info to dwh.cfg.
+7. Test by running create_tables.py and checking the table schemas in your redshift database. You can use Query Editor in the AWS Redshift console for this.
+### Build ETL Pipeline
+1. Implement the logic in etl.py to load data from S3 to staging tables on Redshift.
+2. Implement the logic in etl.py to load data from staging tables to analytics tables on Redshift.
+3. Test by running etl.py after running create_tables.py and running the analytic queries on your Redshift database to compare your results with the expected results.
+4. Delete your redshift cluster when finished.
+
+# Project 4: Data Lake
+## Introduction
+A music streaming startup, Sparkify, has grown their user base and song database even more and want to move their data warehouse to a data lake. Their data resides in S3, in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app.
+
+As their data engineer, you are tasked with building an ETL pipeline that extracts their data from S3, processes them using Spark, and loads the data back into S3 as a set of dimensional tables. This will allow their analytics team to continue finding insights in what songs their users are listening to.
+
+You'll be able to test your database and ETL pipeline by running queries given to you by the analytics team from Sparkify and compare your results with their expected results.
+
+## Project Description
+In this project, you'll apply what you've learned on Spark and data lakes to build an ETL pipeline for a data lake hosted on S3. To complete the project, you will need to load data from S3, process the data into analytics tables using Spark, and load them back into S3. You'll deploy this Spark process on a cluster using AWS.
+
+# Project 5: Data Pipelines with Airflow
+A music streaming company, Sparkify, has decided that it is time to introduce more automation and monitoring to their data warehouse ETL pipelines and come to the conclusion that the best tool to achieve this is Apache Airflow.
+
+They have decided to bring you into the project and expect you to create high grade data pipelines that are dynamic and built from reusable tasks, can be monitored, and allow easy backfills. They have also noted that the data quality plays a big part when analyses are executed on top the data warehouse and want to run tests against their datasets after the ETL steps have been executed to catch any discrepancies in the datasets.
+
+The source data resides in S3 and needs to be processed in Sparkify's data warehouse in Amazon Redshift. The source datasets consist of JSON logs that tell about user activity in the application and JSON metadata about the songs the users listen to.
+
+## Project Overview
+This project will introduce you to the core concepts of Apache Airflow. To complete the project, you will need to create your own custom operators to perform tasks such as staging the data, filling the data warehouse, and running checks on the data as the final step.
+
+We have provided you with a project template that takes care of all the imports and provides four empty operators that need to be implemented into functional pieces of a data pipeline. The template also contains a set of tasks that need to be linked to achieve a coherent and sensible data flow within the pipeline.
+
+You'll be provided with a helpers class that contains all the SQL transformations. Thus, you won't need to write the ETL yourselves, but you'll need to execute it with your custom operators.
+
+![pipeline example](dag.png)
